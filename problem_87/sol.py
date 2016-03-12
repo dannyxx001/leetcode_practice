@@ -22,3 +22,5 @@ class Solution(object):
                 return True
             if(i > 0 and i < len(s1) and self.isScramble(s1[i::],s2[:i:]) and self.isScramble(s1[:i:],s2[i::])):
                 return True
+        
+        pass
