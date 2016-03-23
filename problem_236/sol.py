@@ -15,26 +15,28 @@ class Solution(object):
         :rtype: TreeNode
         """
         p_found, q_found = 0, 0
-        layer = 0
-        parent_map = []
+        parent_map = {}
         bfs_queue = Queue()
         bfs_queue.put(root)
+        bfs_queue.put(1)
         while not (p_found and q_found):
-            layer += 1
             current = bfs_queue.get()
-            parent_map.append(current)
-            
+            layer = bfs_queue.get()
+            parent_map[layer] = current
+
             if current == p:
                 p_found = layer
             elif current == q:
                 q_found = layer
-            
+
             if current.left != None:
                 bfs_queue.put(current.left)
+                bfs_queue.put(layer*2)
             if current.right != None:
                 bfs_queue.put(current.right)
+                bfs_queue.put(layer*2+1)
                 
-        print p_found,q_found
+        #print p_found,q_found
         
         while p_found != q_found:
             if p_found > q_found:
@@ -42,4 +44,4 @@ class Solution(object):
             else:
                 q_found //= 2
         
-        return parent_map[p_found-1]
+        return parent_map[p_found]
